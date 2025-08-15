@@ -1,14 +1,9 @@
 @tool
-extends Control
+class_name FlowChart extends Control
 
-const Utils = preload("res://addons/imjp94.yafsm/scripts/Utils.gd")
-const CohenSutherland = Utils.CohenSutherland
-const FlowChartNode = preload("FlowChartNode.gd")
+const CohenSutherland = YAFSM_Utils.CohenSutherland
 const FlowChartNodeScene = preload("FlowChartNode.tscn")
-const FlowChartLine = preload("FlowChartLine.gd")
 const FlowChartLineScene = preload("FlowChartLine.tscn")
-const FlowChartLayer = preload("FlowChartLayer.gd")
-const FlowChartGrid = preload("FlowChartGrid.gd")
 const Connection = FlowChartLayer.Connection
 
 signal connection(from, to, line) # When a connection established

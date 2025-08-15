@@ -1,7 +1,6 @@
 @tool
-extends RefCounted
+class_name StateDirectory extends RefCounted
 
-const State = preload("states/State.gd")
 
 var path
 var current:

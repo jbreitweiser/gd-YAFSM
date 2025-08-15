@@ -1,15 +1,8 @@
 @tool
-extends "res://addons/imjp94.yafsm/scenes/flowchart/FlowChart.gd"
+extends FlowChart
 
-const StateMachine = preload("../src/states/StateMachine.gd")
-const Transition = preload("../src/transitions/Transition.gd")
-const State = preload("../src/states/State.gd")
-const StateDirectory = preload("../src/StateDirectory.gd")
-const StateNode = preload("state_nodes/StateNode.tscn")
+const StateNodeScene = preload("state_nodes/StateNode.tscn")
 const TransitionLine = preload("transition_editors/TransitionLine.tscn")
-const StateNodeScript = preload("state_nodes/StateNode.gd")
-const StateMachineEditorLayer = preload("StateMachineEditorLayer.gd")
-const PathViewer = preload("PathViewer.gd")
 
 signal inspector_changed(property) # Inform plugin to refresh inspector
 signal debug_mode_changed(new_debug_mode)
@@ -184,7 +177,7 @@ func _on_path_viewer_dir_pressed(dir, index):
 	_last_path = path
 
 func _on_context_menu_index_pressed(index):
-	var new_node = StateNode.instantiate()
+	var new_node = StateNodeScene.instantiate()
 	new_node.theme.get_stylebox("focus", "FlowChartNode").border_color = editor_accent_color
 	match index:
 		0: # Add State
@@ -478,7 +471,7 @@ func clear_graph(layer):
 	clear_connections()
 	
 	for child in layer.content_nodes.get_children():
-		if child is StateNodeScript:
+		if child is StateNode:
 			layer.content_nodes.remove_child(child)
 			child.queue_free()
 	
@@ -489,7 +482,7 @@ func clear_graph(layer):
 func draw_graph(layer):
 	for state_key in layer.state_machine.states.keys():
 		var state = layer.state_machine.states[state_key]
-		var new_node = StateNode.instantiate()
+		var new_node = StateNodeScene.instantiate()
 		new_node.theme.get_stylebox("focus", "FlowChartNode").border_color = editor_accent_color
 		new_node.name = state_key # Set before add_node to let engine handle duplicate name
 		add_node(layer, new_node)

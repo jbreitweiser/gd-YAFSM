@@ -1,6 +1,5 @@
 @tool
-extends EditorInspectorPlugin
-const Transition = preload("res://addons/imjp94.yafsm/src/transitions/Transition.gd")
+class_name TransitionInspector extends EditorInspectorPlugin
 
 const TransitionEditor = preload("res://addons/imjp94.yafsm/scenes/transition_editors/TransitionEditor.tscn")
 

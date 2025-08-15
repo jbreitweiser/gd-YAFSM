@@ -1,10 +1,9 @@
 @tool
 extends Control
-const StackPlayer = preload("../StackPlayer.gd")
+
 const StackItem = preload("StackItem.tscn")
 
 @onready var Stack = $MarginContainer/Stack
-
 
 func _get_configuration_warning():
 	if not (get_parent() is StackPlayer):

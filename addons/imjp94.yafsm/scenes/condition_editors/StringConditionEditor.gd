@@ -1,6 +1,5 @@
 @tool
-extends "res://addons/imjp94.yafsm/scenes/condition_editors/ValueConditionEditor.gd"
-
+extends ValueConditionEditor
 
 @onready var string_value = $MarginContainer/StringValue
 

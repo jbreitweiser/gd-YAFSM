@@ -1,5 +1,5 @@
 @tool
-extends Container
+class_name FlowChartNode extends Container
 # Custom style normal, focus
 
 var selected: = false:

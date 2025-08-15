@@ -1,6 +1,5 @@
 @tool
-extends Resource
-class_name State
+class_name State extends Resource
 
 signal name_changed(new_name)
 

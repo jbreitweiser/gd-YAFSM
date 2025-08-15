@@ -1,11 +1,10 @@
 @tool
-extends "ConditionEditor.gd"
-const Utils = preload("../../scripts/Utils.gd")
-const Comparation = preload("../../src/conditions/ValueCondition.gd").Comparation
+class_name ValueConditionEditor extends ConditionEditor
+
+const Comparation = ValueCondition.Comparation
 
 @onready var comparation_button = $Comparation
 @onready var comparation_popup_menu = $Comparation/PopupMenu
-
 
 func _ready():
 	super._ready()
@@ -14,7 +13,7 @@ func _ready():
 	comparation_popup_menu.id_pressed.connect(_on_comparation_popup_menu_id_pressed)
 
 func _on_comparation_button_pressed():
-	Utils.popup_on_target(comparation_popup_menu, comparation_button)
+	YAFSM_Utils.popup_on_target(comparation_popup_menu, comparation_button)
 
 func _on_comparation_popup_menu_id_pressed(id):
 	change_comparation_action(id)
