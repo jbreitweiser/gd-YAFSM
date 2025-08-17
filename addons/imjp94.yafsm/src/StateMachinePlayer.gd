@@ -15,6 +15,7 @@ enum UpdateProcessMode {
 }
 
 @export var state_machine: StateMachine # StateMachine being played 
+@export var state_node: Node # the node that this machine is managing the state for
 @export var active: = true:  # Activeness of player
 	set = set_active
 @export var autostart: = true # Automatically enter Entry state on ready if true
@@ -57,6 +58,8 @@ func _ready():
 	set_process(false)
 	set_physics_process(false)
 	call_deferred("_initiate") # Make sure connection of signals can be done in _ready to receive all signal callback
+	if not state_node:
+		state_node = get_parent()
 
 func _initiate():
 	if autostart:
@@ -124,6 +127,8 @@ func _on_state_changed(from, to):
 		emit_signal("exited", state)
 
 	emit_signal("transited", from, to)
+	state_machine.get_state(from).state_impl.exit(state_node, to)
+	state_machine.get_state(to).state_impl.enter(state_node, from)
 
 # Called internally if process_mode is PHYSICS/IDLE to unlock update()
 func _update_start():
@@ -207,6 +212,8 @@ func update(delta=get_physics_process_delta_time()):
 	var current_state = get_current()
 	_on_updated(current_state, delta)
 	emit_signal("updated", current_state, delta)
+	state_machine.get_state(current_state).state_impl.update(state_node, delta)
+	
 	if update_process_mode == UpdateProcessMode.MANUAL:
 		# Make sure to auto advance even in MANUAL mode
 		if _was_transited:
