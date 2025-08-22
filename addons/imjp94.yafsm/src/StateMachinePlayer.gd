@@ -109,6 +109,8 @@ func _transit():
 		_on_state_changed(from, to)
 
 func _on_state_changed(from, to):
+	#  Call exit on class before clearing variables 
+	state_machine.get_state(from).state_impl.exit(state_node, to)
 	match to:
 		State.ENTRY_STATE:
 			emit_signal("entered", "")
@@ -127,7 +129,6 @@ func _on_state_changed(from, to):
 		emit_signal("exited", state)
 
 	emit_signal("transited", from, to)
-	state_machine.get_state(from).state_impl.exit(state_node, to)
 	state_machine.get_state(to).state_impl.enter(state_node, from)
 
 # Called internally if process_mode is PHYSICS/IDLE to unlock update()

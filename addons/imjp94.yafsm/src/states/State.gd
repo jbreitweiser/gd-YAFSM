@@ -12,7 +12,7 @@ const META_GRAPH_OFFSET = "graph_offset" # Meta key for graph_offset
 @export var name: = "":  # Name of state, unique within StateMachine
 	set = set_name
 
-var state_class: Script = GDScript.new():
+@export var state_class: Script = GDScript.new():
 	set = set_state_class,
 	get = get_state_class
 	
@@ -52,4 +52,5 @@ func get_graph_offset():
 func set_name(n):
 	if name != n:
 		name = n
+		state_class.resource_name = name
 		emit_signal("name_changed", name)

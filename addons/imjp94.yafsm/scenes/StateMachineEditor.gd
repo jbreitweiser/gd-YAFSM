@@ -226,6 +226,10 @@ func _on_state_node_context_menu_index_pressed(index):
 			_context_node = null
 		4: # Convert
 			convert_to_state_confirmation.popup_centered()
+		5:
+			var layer = create_layer(_context_node)
+			select_layer(layer)
+			_context_node = null
 
 func _on_convert_to_state_confirmation_confirmed():
 	convert_to_state(current_layer, _context_node)
@@ -408,6 +412,7 @@ func _on_state_node_gui_input(event, node):
 					state_node_context_menu.position = get_window().position + Vector2i(get_viewport().get_mouse_position())
 					state_node_context_menu.popup()
 					state_node_context_menu.set_item_disabled(4, not (node.state is StateMachine))
+					state_node_context_menu.set_item_disabled(5, not (node.state is StateMachine))
 					accept_event()
 
 func convert_to_state_machine(layer, node):
