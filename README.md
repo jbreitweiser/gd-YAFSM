@@ -90,6 +90,10 @@ After setup `StateMachine` with editor, you can connect to the following signals
 ![Signal Example](screenshots/yafsm_state_machine_player_signal_example.png)
 *Example code snippet of KinematicBody connect "updated" signal*
 
+Alternatively you can add code directly to the state class GD Script variable embeded in every state.  Each class can have an enter, exit, or update method.
+
+![State Class Example](screenshots/yafsm_state_machine_player_state_class_example.png)
+
 And control `StateMachinePlayer` by accessing parameter:
 
 ```gdscript
